@@ -1,0 +1,13 @@
+services:
+  - type: web
+    name: aiarchitect
+    env: python
+    buildCommand: "pip install -r requirements.txt && python manage.py migrate && python manage.py collectstatic --noinput"
+    startCommand: "gunicorn aiarchitect_site.wsgi:application"
+    envVars:
+      - key: DJANGO_SETTINGS_MODULE
+        value: aiarchitect_site.settings
+      - key: SECRET_KEY
+        sync: false
+      - key: DEBUG
+        value: 'False' 
